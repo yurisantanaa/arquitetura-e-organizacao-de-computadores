@@ -131,7 +131,7 @@ strcat_end:
 #   a0: ponteiro original para dest
 strncpy:
     mv t0, a0           # salva o ponteiro original de dest
-    mv t1, zero         # flag t1: indica se o terminador nulo de src foi encontrado
+    mv t1, zero         # indica se o terminador nulo de src foi encontrado como se fosse um bool
 
 strncpy_loop:
     # verifica se o contador n chegou a zero
@@ -153,7 +153,7 @@ strncpy_loop:
     j strncpy_next_iter
 
 strncpy_set_null_flag:
-    li t1, 1            # seta a flag (t1 = 1)
+    li t1, 1            # seta t1 = 1
     j strncpy_next_iter
 
 strncpy_fill_null:
