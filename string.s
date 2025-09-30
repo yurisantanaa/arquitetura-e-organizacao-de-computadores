@@ -27,16 +27,16 @@ strlen_loop:
     j strlen_loop       # repete
 
 strlen_end:
-    mv a0, t1           # Move o resultado (comprimento) para o registrador de retorno a0
+    mv a0, t1           # move o resultado (comprimento) para o registrador de retorno a0
     ret                 # retorna
 # -----------------------------------------------------------------------------
 # char *strcpy(char *dest, const char *src)
-# Descrição: Copia a string de 'src' para 'dest', incluindo o terminador nulo.
+# Descrição: Copia a string de src para dest, incluindo o terminador nulo.
 # Argumentos:
 #   a0: ponteiro para o buffer de destino (*dest)
 #   a1: ponteiro para a string de origem (*src)
 # Retorno:
-#   a0: ponteiro original para 'dest'
+#   a0: ponteiro original para dest
 strcpy:
     mv t0, a0           # salva o ponteiro em t0 para retorno
 
@@ -48,7 +48,7 @@ strcpy_loop:
     bnez t1, strcpy_loop # continua o loop se o byte copiado não for nulo
 
 strcpy_end:
-    mv a0, t0           # restaura o ponteiro original de 'dest' para o retorno
+    mv a0, t0           # restaura o ponteiro original de dest para o retorno
     ret                 # retorna
 
 # -----------------------------------------------------------------------------
@@ -90,45 +90,45 @@ strcmp_diff:
 
 # -----------------------------------------------------------------------------
 # char *strcat(char *dest, const char *src)
-# Descrição: Anexa a string 'src' ao final da string 'dest'.
+# Descrição: Anexa a string src ao final da string dest.
 # Argumentos:
 #   a0: ponteiro para a string de destino (*dest)
 #   a1: ponteiro para a string de origem (*src)
 # Retorno:
-#   a0: ponteiro original para 'dest'
+#   a0: ponteiro original para dest
 strcat:
-    mv t0, a0           # salva o ponteiro original de 'dest' para o retorno
+    mv t0, a0           # salva o ponteiro original de dest para o retorno
 
-# primeiro, encontra o final da string 'dest'
+# percorre a primeira string ate achar o fiinal
 strcat_find_end:
-    lb t1, 0(a0)        # Carrega um byte de 'dest'
+    lb t1, 0(a0)        # Carrega um byte de dest
     beq t1, zero, strcat_copy # Se encontrou o terminador nulo, começa a cópia
-    addi a0, a0, 1      # Avança o ponteiro 'dest'
+    addi a0, a0, 1      # Avança o ponteiro dest
     j strcat_find_end
 
-# agora, copia 'src' para o final de 'dest'
+# agora, copia src para o final de dest
 strcat_copy:
-    lb t1, 0(a1)        # carrega um byte de 'src'
-    sb t1, 0(a0)        # armazena em 'dest'
-    addi a0, a0, 1      # avança 'dest'
-    addi a1, a1, 1      # avança 'src'
+    lb t1, 0(a1)        # carrega um byte de src
+    sb t1, 0(a0)        # armazena em dest
+    addi a0, a0, 1      # avança dest
+    addi a1, a1, 1      # avança src
     bnez t1, strcat_copy # continua se o byte não for nulo
 
 strcat_end:
-    mv a0, t0           # restaura o ponteiro original de 'dest' para o retorno
+    mv a0, t0           # restaura o ponteiro original de dest para o retorno
     ret
 
 # -----------------------------------------------------------------------------
 # char *strncpy(char *dest, const char *src, size_t n)
-# Descrição: Copia até 'n' caracteres de 'src' para 'dest'.
-#            Se 'src' for menor que 'n', preenche o restante de 'dest' com nulos.
-#            Se 'src' for maior ou igual a 'n', 'dest' não será terminado por nulo!
+# Descrição: Copia até 'n' caracteres de src para dest.
+#            Se src for menor que 'n', preenche o restante de dest com nulos.
+#            Se src for maior ou igual a 'n', dest não será terminado por nulo!
 # Argumentos:
 #   a0: ponteiro para o buffer de destino (*dest)
 #   a1: ponteiro para a string de origem (*src)
 #   a2: número máximo de bytes a copiar (n)
 # Retorno:
-#   a0: ponteiro original para 'dest'
+#   a0: ponteiro original para dest
 strncpy:
     mv t0, a0           # salva o ponteiro original de dest
     mv t1, zero         # flag t1: indica se o terminador nulo de src foi encontrado
@@ -137,7 +137,7 @@ strncpy_loop:
     # verifica se o contador n chegou a zero
     beq a2, zero, strncpy_end
 
-    # se o nulo de src já foi encontrado, apenas preenchemos com nulos
+    # se o nulo de src já foi encontrado, apenas preenche com nulos
     bnez t1, strncpy_fill_null
 
     # carrega byte de src
