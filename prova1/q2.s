@@ -5,7 +5,7 @@
 remove_negativo:
     li   t0, 0        
     li   t1, 0        # contador
-    li   t5, 5
+    li   t5, 4
 
 loop:
     bge  t1, a1, end  # for
