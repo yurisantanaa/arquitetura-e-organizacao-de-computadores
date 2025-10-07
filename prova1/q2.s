@@ -29,6 +29,5 @@ if_end:
     j loop                # loop
 
 end:
-
     mv a0, t0         # retorna o novo tamando
     ret              
