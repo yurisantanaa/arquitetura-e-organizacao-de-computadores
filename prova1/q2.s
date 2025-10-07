@@ -10,7 +10,7 @@ remove_negativo:
 loop:
     bge  t1, a1, end  # for
 
-    mul li t2, t1, t5      # t2 = i * 4
+    mul t2, t1, t5      # t2 = i * 4
     add  t2, a0, t2     # t2 = endereço de arr + (i * 4) -> pula ate o endereco do numero de i
 
     # carrega valor e verifica se maior q 0
